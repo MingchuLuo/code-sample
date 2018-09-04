@@ -12,6 +12,12 @@ use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Validator;
 
+/**
+ * controller to manage exercise template operations
+ *
+ * Class ExerciseController
+ * @package App\Http\Controllers\Program
+ */
 class ExerciseController extends Controller
 {
     //
@@ -19,12 +25,24 @@ class ExerciseController extends Controller
     	parent::__construct($request);
     }
 
+    /**
+     * query exercise templates with filter
+     *
+     * @param Request $request
+     * @return mixed
+     */
     public function templates(Request $request) {
     	$filter = $this->createExerciseFilter($request);
     	$result = ExerciseTemplate::search($filter);
     	return $this->success('exercise.template.loaded', $result);
     }
 
+    /**
+     * create one exercise template
+     *
+     * @param Request $request
+     * @return mixed
+     */
     public function createTemplate(Request $request) {
         $data = $request->all();
         $validator = Validator::make($data, [
@@ -47,6 +65,13 @@ class ExerciseController extends Controller
 
     }
 
+    /**
+     * update one exercise template
+     *
+     * @param Request $request
+     * @param ExerciseTemplate $exerciseTemplate
+     * @return mixed
+     */
     public function updateTemplate(Request $request, ExerciseTemplate $exerciseTemplate) {
         $data = $request->all();
         $validator = Validator::make($data, [
@@ -68,12 +93,25 @@ class ExerciseController extends Controller
 
     }
 
-
+    /**
+     * load one exercise template
+     *
+     * @param Request $request
+     * @param ExerciseTemplate $exerciseTemplate
+     * @return mixed
+     */
     public function getTemplate(Request $request, ExerciseTemplate $exerciseTemplate) {
         $exerciseTemplate->load('type.prescriptionAttributes');
         return $this->success('exercise.template.loaded', $exerciseTemplate);
     }
 
+    /**
+     * delete the given exercise template
+     *
+     * @param Request $request
+     * @param ExerciseTemplate $exerciseTemplate
+     * @return mixed
+     */
     public function deleteTemplate(Request $request, ExerciseTemplate $exerciseTemplate) {
         if(!$exerciseTemplate) {
             return $this->error(Response::HTTP_NOT_FOUND, 'exercise.template.not_found', null);

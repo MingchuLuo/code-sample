@@ -10,8 +10,9 @@ use Illuminate\Http\Request;
 
 
 /**
- * Created by IntelliJ IDEA.
- * User: wme
+ * manage bonus exercises, similar to exercise template
+ *
+ * Created by Eason
  * Date: 30/07/2018
  * Time: 9:35 AM
  */

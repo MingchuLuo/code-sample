@@ -1,7 +1,6 @@
 <?php
 /**
- * Created by IntelliJ IDEA.
- * User: wme
+ * Created by Eason
  * Date: 14/06/2018
  * Time: 10:48 AM
  */
@@ -13,7 +12,7 @@ abstract class ProgramType
 {
     use Enum;
 
-    public const FREE = "Free";
-    public const PREMIUM = "Premium";
+    const FREE = "Free";
+    const PREMIUM = "Premium";
 
 }

@@ -29,6 +29,7 @@ class Program extends Model
         $level = ensure($data['level'], 0);
         $category_id = ensure( $data['program_category_id'], 0);
 
+        // sanitise data
         $sanitised = [
             'status' => EntityStatus::validate($status, EntityStatus::DRAFT),
             'type' => ProgramType::validate($type, ProgramType::FREE),

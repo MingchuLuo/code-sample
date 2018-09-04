@@ -1,7 +1,6 @@
 <?php
 /**
- * Created by IntelliJ IDEA.
- * User: wme
+ * Created by Eason
  * Date: 14/06/2018
  * Time: 10:50 AM
  */
@@ -14,8 +13,8 @@ abstract class ProgramLevel
 
     use Enum;
 
-    public const BEGINNER = 1;
-    public const INTERMEDIATE = 2;
-    public const ADVANCED = 3;
+    const BEGINNER = 1;
+    const INTERMEDIATE = 2;
+    const ADVANCED = 3;
 
 }

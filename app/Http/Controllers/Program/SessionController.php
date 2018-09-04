@@ -18,6 +18,12 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Validator;
 
+/**
+ * manage session related operations
+ *
+ * Class SessionController
+ * @package App\Http\Controllers\Program
+ */
 class SessionController extends Controller
 {
 
@@ -28,6 +34,14 @@ class SessionController extends Controller
         parent::__construct($request);
     }
 
+    /**
+     * create a session into a stage
+     *
+     * @param Request $request
+     * @param Program $program
+     * @param Stage $stage
+     * @return mixed
+     */
     public function createSession(Request $request, Program $program, Stage $stage) {
         if(!$this->validateProgramStructure($program, $stage)){
             return $this->error(Response::HTTP_NOT_FOUND, 'program.stage.not_found');
@@ -49,6 +63,15 @@ class SessionController extends Controller
 
     }
 
+    /**
+     * get a session with all its session units
+     *
+     * @param Request $request
+     * @param Program $program
+     * @param Stage $stage
+     * @param Session $session
+     * @return mixed
+     */
     public function getSession(Request $request, Program $program, Stage $stage, Session $session) {
         if(!$this->validateProgramStructure($program, $stage, $session)){
             return $this->error(Response::HTTP_NOT_FOUND, 'program.session.not_found');
@@ -64,6 +87,15 @@ class SessionController extends Controller
         return $this->success('program.session.loaded', $session);
     }
 
+    /**
+     * update session details
+     *
+     * @param Request $request
+     * @param Program $program
+     * @param Stage $stage
+     * @param Session $session
+     * @return mixed
+     */
     public function updateSession(Request $request, Program $program, Stage $stage, Session $session) {
         if(!$this->validateProgramStructure($program, $stage, $session)){
             return $this->error(Response::HTTP_NOT_FOUND, 'program.session.not_found');
@@ -77,6 +109,15 @@ class SessionController extends Controller
         return $this->success('program.session.updated', ['id'=>$session->id]);
     }
 
+    /**
+     * delete a session from the given stage
+     *
+     * @param Request $request
+     * @param Program $program
+     * @param Stage $stage
+     * @param Session $session
+     * @return mixed
+     */
     public function deleteSession(Request $request, Program $program, Stage $stage, Session $session) {
         if(!$this->validateProgramStructure($program, $stage, $session)){
             return $this->error(Response::HTTP_NOT_FOUND, 'program.session.not_found');
@@ -85,6 +126,15 @@ class SessionController extends Controller
         return $this->success('program.session.deleted', ['id'=>$session->id]);
     }
 
+    /**
+     * add a exercise into the given session using a exercise template
+     *
+     * @param Request $request
+     * @param Program $program
+     * @param Stage $stage
+     * @param Session $session
+     * @return mixed
+     */
     public function addExercise(Request $request, Program $program, Stage $stage, Session $session) {
         if(!$this->validateProgramStructure($program, $stage, $session)){
             return $this->error(Response::HTTP_NOT_FOUND, 'program.session.not_found');
@@ -107,6 +157,16 @@ class SessionController extends Controller
 
     }
 
+    /**
+     * get a exercise and the prescription attributes
+     *
+     * @param Request $request
+     * @param Program $program
+     * @param Stage $stage
+     * @param Session $session
+     * @param Exercise $exercise
+     * @return mixed
+     */
     public function getExercise(Request $request, Program $program, Stage $stage, Session $session, Exercise $exercise) {
         if(!$this->validateProgramStructure($program, $stage, $session, $exercise)){
             return $this->error(Response::HTTP_NOT_FOUND, 'program.exercise.not_found');
@@ -115,6 +175,16 @@ class SessionController extends Controller
         return $this->success('program.exercise.loaded', $exercise);
     }
 
+    /**
+     * delete the given exercise from a session
+     *
+     * @param Request $request
+     * @param Program $program
+     * @param Stage $stage
+     * @param Session $session
+     * @param Exercise $exercise
+     * @return mixed
+     */
     public function deleteExercise(Request $request, Program $program, Stage $stage, Session $session, Exercise $exercise) {
         if(!$this->validateProgramStructure($program, $stage, $session, $exercise)){
             return $this->error(Response::HTTP_NOT_FOUND, 'program.exercise.not_found');
@@ -123,6 +193,16 @@ class SessionController extends Controller
         return $this->success('program.exercise.deleted', ['id'=>$exercise->id]);
     }
 
+    /**
+     * update exercise details
+     *
+     * @param Request $request
+     * @param Program $program
+     * @param Stage $stage
+     * @param Session $session
+     * @param Exercise $exercise
+     * @return mixed
+     */
     public function updateExercise(Request $request, Program $program, Stage $stage, Session $session, Exercise $exercise) {
         if(!$this->validateProgramStructure($program, $stage, $session, $exercise)){
             return $this->error(Response::HTTP_NOT_FOUND, 'program.exercise.not_found');
@@ -135,6 +215,16 @@ class SessionController extends Controller
         return $this->success('program.exercise.updated', ['id'=>$exercise->id]);
     }
 
+    /**
+     * add prescription attributes to an exercise
+     *
+     * @param Request $request
+     * @param Program $program
+     * @param Stage $stage
+     * @param Session $session
+     * @param Exercise $exercise
+     * @return mixed
+     */
     public function addAttributes(Request $request, Program $program, Stage $stage, Session $session, Exercise $exercise) {
         if(!$this->validateProgramStructure($program, $stage, $session, $exercise)){
             return $this->error(Response::HTTP_NOT_FOUND,'program.exercise.not_found');
@@ -150,6 +240,8 @@ class SessionController extends Controller
     }
 
     /**
+     * delete a attribute from an exercise
+     *
      * @param Request $request
      * @param Program $program
      * @param Stage $stage
@@ -167,6 +259,16 @@ class SessionController extends Controller
         return $this->success('program.attribute.deleted', ['id'=>$exercisePrescription->id]);
     }
 
+    /**
+     * add a questionnaire into a session using topic
+     *
+     * @param Request $request
+     * @param Program $program
+     * @param Stage $stage
+     * @param Session $session
+     * @param Topic $topic
+     * @return mixed
+     */
     public function addQuestionnaire(Request $request, Program $program, Stage $stage, Session $session, Topic $topic) {
         if(!$this->validateProgramStructure($program, $stage, $session)){
             return $this->error(Response::HTTP_NOT_FOUND, 'program.topic.not_found');
@@ -175,6 +277,16 @@ class SessionController extends Controller
         return $this->success('program.questionnaire.created', ['id'=> $questionnaire->id]);
     }
 
+    /**
+     * delete the given questionnaire from a session
+     *
+     * @param Request $request
+     * @param Program $program
+     * @param Stage $stage
+     * @param Session $session
+     * @param Questionnaire $questionnaire
+     * @return mixed
+     */
     public function deleteQuestionnaire(Request $request, Program $program, Stage $stage, Session $session, Questionnaire $questionnaire) {
         if(!$this->validateProgramStructure($program, $stage, $session, $questionnaire)){
             return $this->error(Response::HTTP_NOT_FOUND, 'program.questionnaire.not_found');
